@@ -29,7 +29,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {TicketSchemaType} from "@/prisma/schema/TicketSchema";
 
 const columns: ColumnDef<TicketSchemaType>[] = [
@@ -178,7 +178,7 @@ export default function PanelPage(props: PanelPageProps) {
             </div>
             <div className="flex justify-center mt-4">
                 <div className="flex justify-center gap-10">
-                    {props.totalPages !== 0 &&
+                    {props.totalPages - 1 !== 0 &&
                         <div className="flex justify-center items-center gap-3 p-5">
                             <Button className="w-20" onClick={() => table.previousPage()}
                                     disabled={!table.getCanPreviousPage()}>Précédent</Button>
