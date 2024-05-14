@@ -2,6 +2,8 @@
 
 import { useSearchParams } from "next/navigation"
 import {Card, CardContent, CardHeader} from "@/components/ui/card";
+import {Suspense} from "react";
+import {Skeleton} from "@/components/ui/skeleton";
 
 enum Error {
     Configuration = "Configuration",
@@ -33,21 +35,28 @@ const errorMap = {
     ),
 }
 
-export default function AuthErrorPage() {
+export default function ErrorPage() {
+    return (
+        <Suspense fallback={<Skeleton/>}>
+            <AuthErrorPage/>
+        </Suspense>
+    );
+}
+
+function AuthErrorPage() {
     const search = useSearchParams()
     const error = search.get("error") as Error
 
     return (
         <div className="w-full h-screen flex justify-center items-center">
-
-        <Card className="w-[40%]">
-            <CardHeader>
-                <h1>{error}</h1>
-            </CardHeader>
-            <CardContent>
-                {errorMap[error] || errorMap[Error.Default]}
-            </CardContent>
-        </Card>
+            <Card className="w-[40%]">
+                <CardHeader>
+                    <h1>{error}</h1>
+                </CardHeader>
+                <CardContent>
+                    {errorMap[error] || errorMap[Error.Default]}
+                </CardContent>
+            </Card>
         </div>
-    )
+    );
 }
