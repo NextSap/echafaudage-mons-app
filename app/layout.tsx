@@ -3,8 +3,8 @@ import "@/style/globals.css";
 import {Toaster} from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: "undefined",
-  description: "undefined",
+  title: "Echafaudage Mons - Devis",
+  description: "Demandez votre devis gratuitement !",
 };
 
 export default function RootLayout({
