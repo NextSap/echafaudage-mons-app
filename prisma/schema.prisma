@@ -85,14 +85,14 @@ model Ticket {
   phoneNumber   String
   email         String
   address       String
-  vatPayer      Boolean?
-  vatNumber     String?
+  vatPayer      Boolean
+  vatNumber     String
   materialType  String
   height        Int
   length        Int
   area          Int
   creationDate  DateTime @default(now())
-  duration      Int?
-  estimatedPrice Int?
+  duration      Int
+  estimatedPrice Int
   sale          Boolean
 }

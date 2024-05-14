@@ -36,5 +36,5 @@ export const {handlers, auth, signIn, signOut} = NextAuth({
         signIn({ user }) {
             return authorizedEmails.includes(String(user.email));
         }
-    }
+    },
 })
