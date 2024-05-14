@@ -44,8 +44,15 @@ export default function Home() {
         },
     });
 
-    function sendEmail() {
-
+    function sendEmail(values: TicketSchemaType) {
+        fetch("/api/send", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(values),
+        }).then((response) => console.log(response))
+            .catch((error) => console.error(error));
     }
 
     function onSubmit(values: TicketSchemaType) {
@@ -56,7 +63,7 @@ export default function Home() {
         createTicket(values)
             .then(() => {
                 if(values.area >= 70)
-                    sendEmail();
+                    sendEmail(values);
 
                 toast({
                     title: "Demande de devis envoyée",
@@ -178,7 +185,7 @@ export default function Home() {
                                         <FormItem>
                                             <FormLabel>Hauteur - {value}m</FormLabel>
                                             <FormControl>
-                                                <Input type={"number"} min={"0"} onChange={onChange} step={0.5}
+                                                <Input type={"number"} min={"0"} onChange={onChange}  step={0.5}
                                                        placeholder="Hauteur"/>
                                             </FormControl>
                                             <FormMessage/>
@@ -205,7 +212,7 @@ export default function Home() {
                                             <FormLabel>Superficie - {value}m²</FormLabel>
                                             <FormControl>
                                                 <Slider defaultValue={Array.of(value)} onValueChange={(e) => onChange(e[0])} step={1} min={0}
-                                                        max={100}/>
+                                                        max={200}/>
                                             </FormControl>
                                             <FormMessage/>
                                         </FormItem>
