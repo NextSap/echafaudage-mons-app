@@ -44,6 +44,8 @@ Bonjour <b>{name}</b>,<br/>
 <br/>
 Voici votre devis personnalisé :<br/>
 <br/>
+Ce devis est fourni à titre indicatif et ne constitue en aucun cas un engagement contractuel de la part des parties concernées, un agent commercial vous contactera pour confirmer votre demande.<br/>
+<br/>
 ________________________________________<br/>
 <b>Quantité</b><br/>
 <br/>
@@ -72,9 +74,7 @@ ________________________________________<br/>
 <br/>
 Bien à vous,<br/>
 Echafaudage Mons
-<br/><br/>
-Ce devis est fourni à titre indicatif et ne constitue en aucun cas un engagement contractuel de la part des parties concernées, un agent commercial vous contactera pour confirmer votre demande.<br/>
-<br/><br/>
+<br/><br/><br/><br/>
 ----<br/>
 Veuillez ne pas répondre à cet email svp, aucune réponse n'y sera apportée.`
         .replaceAll("{name}", ticket.name)
