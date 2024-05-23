@@ -55,7 +55,7 @@ export default function Home() {
     }
 
     function sendPrivateEmail() {
-        fetch("/api/send/public", {
+        fetch("/api/send/private", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
