@@ -17,5 +17,5 @@ export async function checkSpam(email: string, phone: string) {
 
     if(!ticket) return false;
 
-    return ticket.creationDate.getDate() < Date.now() + 60000 * 5;
+    return ticket.creationDate.getDate() < (Date.now() + 60000);
 }

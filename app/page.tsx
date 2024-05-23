@@ -91,9 +91,11 @@ export default function Home() {
                 }
 
             toast({
+                variant: "destructive",
                 title: "Erreur",
                 description: "Une erreur est survenue lors de l'envoi de votre demande de devis",
             });
+            console.log(error);
         });
     }
 
