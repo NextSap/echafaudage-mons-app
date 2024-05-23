@@ -21,7 +21,6 @@ import React, {useState} from "react";
 import {useToast} from "@/components/ui/use-toast";
 import {TicketSchema, TicketSchemaType} from "@/prisma/schema/TicketSchema";
 import {createTicket} from "@/lib/action/create-ticket";
-import {checkSpam} from "@/lib/action/check-spam";
 
 export default function Home() {
     const {toast} = useToast();
@@ -44,13 +43,23 @@ export default function Home() {
         },
     });
 
-    function sendEmail(values: TicketSchemaType) {
-        fetch("/api/send", {
+    function sendPublicEmail(values: TicketSchemaType) {
+        fetch("/api/send/public", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(values),
+        }).then((response) => console.log(response))
+            .catch((error) => console.error(error));
+    }
+
+    function sendPrivateEmail() {
+        fetch("/api/send/public", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
         }).then((response) => console.log(response))
             .catch((error) => console.error(error));
     }
@@ -62,8 +71,10 @@ export default function Home() {
 
         createTicket(values)
             .then(() => {
-                if(values.area >= 70)
-                    sendEmail(values);
+                sendPrivateEmail();
+
+                if(values.area >= 70 && !values.sale)
+                    sendPublicEmail(values);
 
                 toast({
                     title: "Demande de devis envoyée",
