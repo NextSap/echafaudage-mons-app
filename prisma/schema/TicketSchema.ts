@@ -18,4 +18,10 @@ export const TicketSchema = z.object({
     creationDate: z.date().optional(),
 });
 
+export const TicketFormSchema = TicketSchema.extend({
+    city: z.string().min(2, {message: "Ville requise"}),
+    postalCode: z.string().min(2, {message: "Code postal invalide"})
+});
+
 export type TicketSchemaType = z.infer<typeof TicketSchema>;
+export type TicketFormSchemaType = z.infer<typeof TicketFormSchema>;

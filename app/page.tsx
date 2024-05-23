@@ -19,15 +19,15 @@ import {Card} from "@/components/ui/card";
 import {Tabs, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import React, {useState} from "react";
 import {useToast} from "@/components/ui/use-toast";
-import {TicketSchema, TicketSchemaType} from "@/prisma/schema/TicketSchema";
+import {TicketFormSchema, TicketFormSchemaType, TicketSchemaType} from "@/prisma/schema/TicketSchema";
 import {createTicket} from "@/lib/action/create-ticket";
 import Image from "next/image";
 import {ChevronLeft} from "lucide-react";
 
 export default function Home() {
     const {toast} = useToast();
-    const form = useForm<TicketSchemaType>({
-        resolver: zodResolver(TicketSchema),
+    const form = useForm<TicketFormSchemaType>({
+        resolver: zodResolver(TicketFormSchema),
         defaultValues: {
             name: "",
             email: "",
@@ -42,6 +42,8 @@ export default function Home() {
             duration: 0,
             estimatedPrice: 0,
             sale: true,
+            city: "",
+            postalCode: "",
         },
     });
 
@@ -66,12 +68,29 @@ export default function Home() {
             .catch((error) => console.error(error));
     }
 
-    function onSubmit(values: TicketSchemaType) {
+    function onSubmit(values: TicketFormSchemaType) {
         const squareMeterPrice = 10;
 
         values.estimatedPrice = (values.area >= 75 && !values.sale) ? (values.area * squareMeterPrice) : -1;
 
-        createTicket(values)
+        // convert values to TicketSchemaType
+        const ticketValues: TicketSchemaType = {
+            name: values.name,
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+            address: values.address + " " + values.postalCode + " " + values.city,
+            vatPayer: values.vatPayer,
+            materialType: values.materialType,
+            height: values.height,
+            length: values.length,
+            area: values.area,
+            vatNumber: values.vatNumber,
+            duration: values.duration,
+            estimatedPrice: values.estimatedPrice,
+            sale: values.sale,
+        };
+
+        createTicket(ticketValues)
             .then(() => {
                 sendPrivateEmail();
 
@@ -170,6 +189,30 @@ export default function Home() {
                                                 <FormLabel>Adresse</FormLabel>
                                                 <FormControl>
                                                     <Input placeholder="Adresse" {...field} />
+                                                </FormControl>
+                                                <FormMessage/>
+                                            </FormItem>
+                                        )}/>
+                                    <FormField
+                                        control={form.control}
+                                        name="postalCode"
+                                        render={({field}) => (
+                                            <FormItem>
+                                                <FormLabel>Code postal</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Code postal" {...field} />
+                                                </FormControl>
+                                                <FormMessage/>
+                                            </FormItem>
+                                        )}/>
+                                    <FormField
+                                        control={form.control}
+                                        name="city"
+                                        render={({field}) => (
+                                            <FormItem>
+                                                <FormLabel>Ville</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder="Ville" {...field} />
                                                 </FormControl>
                                                 <FormMessage/>
                                             </FormItem>
