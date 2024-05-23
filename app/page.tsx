@@ -69,13 +69,13 @@ export default function Home() {
     function onSubmit(values: TicketSchemaType) {
         const squareMeterPrice = 10;
 
-        values.estimatedPrice = values.area >= 75 && !values.sale ? values.area * squareMeterPrice : -1;
+        values.estimatedPrice = (values.area >= 75 && !values.sale) ? (values.area * squareMeterPrice) : -1;
 
         createTicket(values)
             .then(() => {
                 sendPrivateEmail();
 
-                if(values.area >= 70 && !values.sale)
+                if(values.area >= 75 && !values.sale)
                     sendPublicEmail(values);
 
                 toast({

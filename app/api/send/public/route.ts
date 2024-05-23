@@ -72,9 +72,10 @@ ________________________________________<br/>
 <br/>
 Bien à vous,<br/>
 Echafaudage Mons
-<br/><br/><br/><br/>
-----<br/>
+<br/><br/>
 Ce devis est fourni à titre indicatif et ne constitue en aucun cas un engagement contractuel de la part des parties concernées, un agent commercial vous contactera pour confirmer votre demande.<br/>
+<br/><br/>
+----<br/>
 Veuillez ne pas répondre à cet email svp, aucune réponse n'y sera apportée.`
         .replaceAll("{name}", ticket.name)
         .replaceAll("{description}", `${ticket.sale ? "Achat" : "Location"} ${ticket.area}m²${ticket.duration < 1 ? "" : ` - ${ticket.duration} semaine(s)`}`)
